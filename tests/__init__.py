@@ -4,7 +4,7 @@ from nose.tools import assert_is_instance, assert_list_equal, eq_
 
 from flask import Flask
 from flask import _app_ctx_stack as stack
-from flask.ext.boto3 import Boto3
+from flask_boto3 import Boto3
 
 
 @patch('boto3.resource')
