@@ -54,10 +54,17 @@ class Boto3(object):
                 if not(isinstance(args, list) or isinstance(args, tuple)):
                     args = [args]
 
-                if args:
-                    cns.update({svc: boto3.resource(svc, *args, **kwargs)})
-                else:
-                    cns.update({svc: boto3.resource(svc, **kwargs)})
+                try:
+                    if args:
+                        cns.update({svc: boto3.resource(svc, *args, **kwargs)})
+                    else:
+                        cns.update({svc: boto3.resource(svc, **kwargs)})
+                except ResourceNotExistsError:
+                    # Fallback to low level interface if resource does not exist
+                    if args:
+                        cns.update({svc: boto3.client(svc, *args, **kwargs)})
+                    else:
+                        cns.update({svc: boto3.client(svc, **kwargs)})
         except UnknownServiceError:
             raise
         return cns
