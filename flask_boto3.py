@@ -1,5 +1,6 @@
 import boto3
 from botocore.exceptions import UnknownServiceError
+from boto3.exceptions import ResourceNotExistsError
 from flask import _app_ctx_stack as stack
 from flask import current_app
 
