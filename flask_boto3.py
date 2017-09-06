@@ -42,6 +42,8 @@ class Boto3(object):
 
         try:
             cns = {}
+            # Resource is a high-level interface whereas service is low-level
+            available_resources = boto3.Session().get_available_resources()
             for svc in requested_services:
                 # Check for optional parameters
                 params = current_app.config.get(
@@ -55,13 +57,13 @@ class Boto3(object):
                 if not(isinstance(args, list) or isinstance(args, tuple)):
                     args = [args]
 
-                try:
+                if svc in available_resources:
                     if args:
                         cns.update({svc: boto3.resource(svc, *args, **kwargs)})
                     else:
                         cns.update({svc: boto3.resource(svc, **kwargs)})
-                except ResourceNotExistsError:
-                    # Fallback to low level interface if resource does not exist
+                else:
+                    # Use low-level service interface if resource does not exist
                     if args:
                         cns.update({svc: boto3.client(svc, *args, **kwargs)})
                     else:
