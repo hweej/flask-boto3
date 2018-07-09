@@ -42,8 +42,10 @@ htmlcov/
 .cache
 nosetests.xml
 coverage.xml
-*,cover
+cover/
 .hypothesis/
+test_results/
+.pytest_cache
 
 # Translations
 *.mo
@@ -83,3 +85,7 @@ ENV/
 
 # Spyder project settings
 .spyderproject
+
+# Handled dynamically by Pipenv
+requirements.txt
+requirements_test.txt
