@@ -12,7 +12,7 @@ with pathlib.Path('requirements.txt').open() as requirements_txt:
 
 setup(
     name='Flask-Boto3',
-    version='0.3.2o',
+    version='0.4.0',
     url='https://github.com/Ketouem/flask-boto3',
     license='MIT',
     author='Cyril "Ketouem" Thomas',
